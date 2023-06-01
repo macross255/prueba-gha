@@ -7,8 +7,11 @@ jobs:
     steps:
     - uses: actions/checkout@master  ## se descarga nuestro repo (checkout) y lo coloca en nuestra VM 
     - name: build and push to docker     ## construye nuestra img 
-      uses: docker/build-push-action@v2  ## sube nustra img al hub de docker
+      uses: docker/build-push-action@v1  ## sube nustra img al hub de docker
       with:    ## opciones especificas para nuestra action
         username: ${{ secrets.DOCKER_USERNAME }}  ## credenciales de nuestro docker hub
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: ${{ github.repository }}
+        tag_with_ref: true
+        tag_with_sha: true
+        tags: ${{ github.sha }}
